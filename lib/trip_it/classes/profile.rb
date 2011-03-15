@@ -27,8 +27,8 @@ module TripIt
       @profile_email_addresses  = []
       @group_memberships        = []
       
-      checkForArray(@profile_email_addresses, TripIt::ProfileEmailAddress, info['ProfileEmailAddresses']['ProfileEmailAddress']) unless info['ProfileEmailAddresses'].nil?
-      checkForArray(@group_memberships, TripIt::Group, info['GroupMemberships']['Group']) unless info['GroupMemberships'].nil?
+      chkAndPopulate(@profile_email_addresses, TripIt::ProfileEmailAddress, info['ProfileEmailAddresses']['ProfileEmailAddress']) unless info['ProfileEmailAddresses'].nil?
+      chkAndPopulate(@group_memberships, TripIt::Group, info['GroupMemberships']['Group']) unless info['GroupMemberships'].nil?
     end
     
     def trips(params = {})

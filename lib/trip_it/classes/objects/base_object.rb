@@ -13,7 +13,7 @@ module TripIt
       @is_client_traveler     = Boolean(info["is_client_traveler"])
       @display_name           = info["display_name"]
       @images                 = []
-      checkForArray(@images, TripIt::Image, info["Image"])
+      chkAndPopulate(@images, TripIt::Image, info["Image"])
     end
   end
 end

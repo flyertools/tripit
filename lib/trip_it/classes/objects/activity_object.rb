@@ -22,7 +22,7 @@ module TripIt
       @location_name        = info["location_name"]
       @detail_type_code     = info["detail_type_code"]
       @participants         = []
-      checkForArray(@participants, TripIt::Traveler, info["Participant"])
+      chkAndPopulate(@participants, TripIt::Traveler, info["Participant"])
     end
     
     def detail_type_code

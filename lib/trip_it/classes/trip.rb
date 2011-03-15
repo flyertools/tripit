@@ -31,7 +31,7 @@ module TripIt
       @trip_invitees              = []
       @closeness_matches          = []
       
-      checkForArray(@trip_crs_remarks, TripIt::TripCrsRemark, info['Trip']['TripCrsRemarks']['TripCrsRemark']) unless info['Trip']['TripCrsRemarks'].nil?
+      chkAndPopulate(@trip_crs_remarks, TripIt::TripCrsRemark, info['Trip']['TripCrsRemarks']['TripCrsRemark']) unless info['Trip']['TripCrsRemarks'].nil?
       
       # Load associated profiles into Profile objects
       profileInfo                 = info['Profile']
@@ -81,7 +81,7 @@ module TripIt
           [info['WeatherObject'], @weather = [], TripIt::WeatherObject]
         ].each do |obj|
           unless obj[0].nil?
-            checkForObjArray(@client, obj[1], obj[2], obj[0])
+            chkObjAndPopulate(@client, obj[1], obj[2], obj[0])
           end
         end
       end
@@ -92,7 +92,7 @@ module TripIt
       actobj = @client.list("/object", {:trip_id => @id, :type => "activity"})["ActivityObject"]
       @activities = []
       return @activities if actobj.nil?
-      checkForObjArray(@client, @activities, TripIt::ActivityObject, actobj)
+      chkObjAndPopulate(@client, @activities, TripIt::ActivityObject, actobj)
       return @activities
     end
     
@@ -101,7 +101,7 @@ module TripIt
       airobj = @client.list("/object", {:trip_id => @id, :type => "air"})["AirObject"]
       @air = []
       return @air if airobj.nil?
-      checkForObjArray(@client, @air, TripIt::AirObject, airobj)
+      chkObjAndPopulate(@client, @air, TripIt::AirObject, airobj)
       return @air
     end
     
@@ -110,7 +110,7 @@ module TripIt
       carobj = @client.list("/object", {:trip_id => @id, :type => "car"})["CarObject"]
       @cars = []
       return @cars if carobj.nil?
-      checkForObjArray(@client, @cars, TripIt::CarObject, carobj)
+      chkObjAndPopulate(@client, @cars, TripIt::CarObject, carobj)
       return @cars
     end
     
@@ -119,7 +119,7 @@ module TripIt
       cruiseobj = @client.list("/object", {:trip_id => @id, :type => "cruise"})["CruiseObject"]
       @cruises = []
       return @cruises if cruiseobj.nil?
-      checkForObjArray(@client, @cruises, TripIt::CruiseObject, cruiseobj)
+      chkObjAndPopulate(@client, @cruises, TripIt::CruiseObject, cruiseobj)
       return @cruises
     end
     
@@ -128,7 +128,7 @@ module TripIt
       directobj = @client.list("/object", {:trip_id => @id, :type => "directions"})["DirectionsObject"]
       @directions = []
       return @directions if directobj.nil?
-      checkForObjArray(@client, @directions, TripIt::DirectionsObject, directobj)
+      chkObjAndPopulate(@client, @directions, TripIt::DirectionsObject, directobj)
       return @directions
     end
     
@@ -137,7 +137,7 @@ module TripIt
       lodgingobj = @client.list("/object", {:trip_id => @id, :type => "lodging"})["LodgingObject"]
       @lodgings = []
       return @lodgings if lodgingobj.nil?
-      checkForObjArray(@client, @lodgings, TripIt::LodgingObject, lodgingobj)
+      chkObjAndPopulate(@client, @lodgings, TripIt::LodgingObject, lodgingobj)
       return @lodgings
     end
     
@@ -146,7 +146,7 @@ module TripIt
       mapsobj = @client.list("/object", {:trip_id => @id, :type => "map"})["MapObject"]
       @maps = []
       return @maps if mapsobj.nil?
-      checkForObjArray(@client, @maps, TripIt::MapObject, mapsobj)
+      chkObjAndPopulate(@client, @maps, TripIt::MapObject, mapsobj)
       return @maps
     end
     
@@ -155,7 +155,7 @@ module TripIt
       noteobj = @client.list("/object", {:trip_id => @id, :type => "note"})["NoteObject"]
       @notes = []
       return @notes if noteobj.nil?
-      checkForObjArray(@client, @notes, TripIt::NoteObject, noteobj)
+      chkObjAndPopulate(@client, @notes, TripIt::NoteObject, noteobj)
       return @notes   
     end
     
@@ -164,7 +164,7 @@ module TripIt
       railobj = @client.list("/object", {:trip_id => @id, :type => "rail"})["RailObject"]
       @rail = []
       return @rail if railobj.nil?
-      checkForObjArray(@client, @rail, TripIt::RailObject, railobj)
+      chkObjAndPopulate(@client, @rail, TripIt::RailObject, railobj)
       return @rail
     end
     
@@ -173,7 +173,7 @@ module TripIt
       restobj = @client.list("/object", {:trip_id => @id, :type => "restaurant"})["RestaurantObject"]
       @restaurants = []
       return @rail if restobj.nil?
-      checkForObjArray(@client, @restaurants, TripIt::RestaurantObject, restobj)
+      chkObjAndPopulate(@client, @restaurants, TripIt::RestaurantObject, restobj)
       return @restaurants
     end
     
@@ -182,7 +182,7 @@ module TripIt
       transobj = @client.list("/object", {:trip_id => @id, :type => "transport"})["TransportObject"]
       @transports = []
       return @transports if transobj.nil?
-      checkForObjArray(@client, @transports, TripIt::TransportObject, transobj)
+      chkObjAndPopulate(@client, @transports, TripIt::TransportObject, transobj)
       return @transports
     end
     
@@ -191,8 +191,29 @@ module TripIt
       wxobj = @client.list("/object", {:trip_id => @id, :type => "weather"})["WeatherObject"]
       @weather = []
       return @weather if wxobj.nil?
-      checkForObjArray(@client, @weather, TripIt::WeatherObject, wxobj)
+      chkObjAndPopulate(@client, @weather, TripIt::WeatherObject, wxobj)
       return @weather      
-    end    
+    end
+    
+    def timeline
+      [
+        @activities,
+        @air,
+        @cars,
+        @cruises,
+        @directions,
+        @lodgings,
+        @maps,
+        @notes,
+        @rail,
+        @restaurants,
+        @transports
+      ].each do |obj|
+        unless obj.empty?
+          # First sort each object by date.
+          #obj.sort_by {|wxs| wxs.date }
+        end
+      end
+    end
   end
 end

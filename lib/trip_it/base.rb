@@ -2,7 +2,7 @@ module TripIt
   class Base
     extend TripIt::ParamUtil
 
-    def checkForArray(iVar, objType, prop)
+    def chkAndPopulate(iVar, objType, prop)
       return if prop.nil?
       if prop.is_a?(Array)
         prop.each do |value|
@@ -13,7 +13,7 @@ module TripIt
       end
     end
     
-    def checkForObjArray(client, iVar, objType, prop)
+    def chkObjAndPopulate(client, iVar, objType, prop)
       return if prop.nil?
       if prop.is_a?(Array)
         prop.each do |value|

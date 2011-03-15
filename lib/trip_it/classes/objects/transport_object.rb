@@ -15,8 +15,8 @@ module TripIt
       super(info)
       @segments   = []
       @travelers  = []
-      checkForArray(@segments, TripIt::TransportSegment, info["Segment"])
-      checkForArray(@travelers, TripIt::Traveler, info["Traveler"])
+      chkAndPopulate(@segments, TripIt::TransportSegment, info["Segment"])
+      chkAndPopulate(@travelers, TripIt::Traveler, info["Traveler"])
     end
     
     def segments

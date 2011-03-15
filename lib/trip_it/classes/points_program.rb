@@ -21,8 +21,8 @@ module TripIt
       @total_num_expirations  = params["total_num_expirations"]
       @activities             = []
       @expirations            = []
-      checkForArray(@activities, TripIt::PointsProgramActivity, params["Activity"]) unless params["Activity"].nil?
-      checkForArray(@expirations, TripIt::PointsProgramExpiration, params["Expiration"]) unless params["Expiration"].nil?
+      chkAndPopulate(@activities, TripIt::PointsProgramActivity, params["Activity"]) unless params["Activity"].nil?
+      chkAndPopulate(@expirations, TripIt::PointsProgramExpiration, params["Expiration"]) unless params["Expiration"].nil?
     end
   end
 end

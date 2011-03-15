@@ -23,7 +23,7 @@ module TripIt
       @room_type            = info["room_type"]
       @address              = TripIt::Address.new(info["Address"])
       @guests               = []
-      checkForArray(@guests, TripIt::Traveler, info["Guest"])
+      chkAndPopulate(@guests, TripIt::Traveler, info["Guest"])
     end
   end
 end
