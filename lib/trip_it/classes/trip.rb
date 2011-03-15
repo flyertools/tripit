@@ -5,10 +5,13 @@ module TripIt
     string_param :description, :display_name, :image_url, :primary_location
     boolean_param :is_private
     
-    def initialize(client, obj_id, include_children = false, source = nil)
+    def initialize(client, obj_id = nil, include_children = false, source = nil)
       @client = client
-      @obj_id = obj_id
-      include_children ? populate(source, :include_objects => true) : populate(source)
+      # If we get an Object ID, we'll load and populate it. Otherwise assume its a new Trip Object.
+      unless obj_id.nil?
+        @obj_id = obj_id
+        include_children ? populate(source, :include_objects => true) : populate(source)
+      end
     end
     
     def populate(source, params = {})

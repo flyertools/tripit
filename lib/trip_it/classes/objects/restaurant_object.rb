@@ -5,10 +5,12 @@ module TripIt
     traveler_param :reservation_holder
     string_param :cuisine, :dress_code, :hours, :number_patrons, :price_range
     
-    def initialize(client, obj_id, source = nil)
+    def initialize(client, obj_id = nil, source = nil)
       @client = client
-      @obj_id = obj_id
-      populate(source)
+      unless obj_id.nil?
+        @obj_id = obj_id
+        populate(source)
+      end
     end
     
     def populate(source)

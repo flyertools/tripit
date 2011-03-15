@@ -3,10 +3,12 @@ module TripIt
     traveler_array_param :travelers
     string_param :cabin_number, :cabin_type, :dining, :ship_name
     
-    def initialize(client, obj_id, source = nil)
+    def initialize(client, obj_id = nil, source = nil)
       @client = client
-      @obj_id = obj_id
-      populate(source)
+      unless obj_id.nil?
+        @obj_id = obj_id
+        populate(source)
+      end
     end
     
     def populate(source)

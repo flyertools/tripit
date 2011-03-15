@@ -4,10 +4,12 @@ module TripIt
     string_param :location
     float_param :avg_high_temp_c, :avg_low_temp_c, :avg_wind_speed_kn, :avg_precipitation_cm, :avg_snow_depth_cm
     
-    def initialize(client, obj_id, source = nil)
+    def initialize(client, obj_id = nil, source = nil)
       @client = client
-      @obj_id = obj_id
-      populate(source)
+      unless obj_id.nil?
+        @obj_id = obj_id
+        populate(source)
+      end
     end
     
     def populate(source)

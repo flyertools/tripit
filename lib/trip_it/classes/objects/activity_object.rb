@@ -5,10 +5,12 @@ module TripIt
     traveler_array_param :participants
     string_param :location_name
     
-    def initialize(client, obj_id, source = nil)
+    def initialize(client, obj_id = nil, source = nil)
       @client = client
-      @obj_id = obj_id
-      populate(source)
+      unless obj_id.nil?
+        @obj_id = obj_id
+        populate(source)
+      end
     end
     
     def populate(source)
