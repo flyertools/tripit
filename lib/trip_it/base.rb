@@ -17,10 +17,10 @@ module TripIt
       return if prop.nil?
       if prop.is_a?(Array)
         prop.each do |value|
-          iVar << objType.new(client, value[:id], value)
+          iVar << objType.new(client, value["id"], value)
         end
       else
-        iVar << objType.new(client, prop[:id], prop)
+        iVar << objType.new(client, prop["id"], prop)
       end
     end
     

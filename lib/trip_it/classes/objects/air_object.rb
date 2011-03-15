@@ -18,6 +18,7 @@ module TripIt
       @travelers  = []
       chkAndPopulate(@segments, TripIt::AirSegment, info["Segment"])
       chkAndPopulate(@travelers, TripIt::Traveler, info["Traveler"])
+      @segments = @segments.sort_by {|seg| seg.start_date_time } unless @segments.empty?
     end
     
     def segments
