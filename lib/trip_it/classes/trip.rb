@@ -198,20 +198,19 @@ module TripIt
     def timeline
       [
         @activities,
-        @air,
         @cars,
-        @cruises,
         @directions,
         @lodgings,
         @maps,
         @notes,
-        @rail,
-        @restaurants,
-        @transports
+        @restaurants
       ].each do |obj|
         unless obj.empty?
-          # First sort each object by date.
-          #obj.sort_by {|wxs| wxs.date }
+          if !obj.first.start_date_time.nil?
+            # Sort by Start_Date_Time
+          elsif !obj.first.datetime.nil?
+            # Sort by datetime
+          end
         end
       end
     end
