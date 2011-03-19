@@ -1,6 +1,5 @@
 module TripIt
   class AirObject < ReservationObject
-    attr_reader :info
     traveler_array_param :travelers
     
     def initialize(client, obj_id = nil, source = nil)

@@ -1,7 +1,8 @@
 module TripIt
   class AirSegment < Base
     attr_reader :status, :start_airport_latitude, :start_airport_longitude, :end_airport_latitude, :end_airport_longitude, :marketing_airline_code, \
-                :operating_airline_code, :alternate_flights_url, :aircraft_display_name, :conflict_resolution_url, :is_hidden, :id
+                :operating_airline_code, :alternate_flights_url, :aircraft_display_name, :conflict_resolution_url, :id
+    boolean_read_param :is_hidden
     
     string_param :start_city_name, :start_gate, :start_terminal, :end_city_name, :end_gate, :end_terminal, :marketing_airline, :marketing_flight_number, \
                  :operating_airline, :operating_flight_number, :aircraft, :distance, :duration, :entertainment, :meal, :notes, :ontime_perc, \

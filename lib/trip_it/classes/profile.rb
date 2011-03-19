@@ -1,8 +1,9 @@
 module TripIt
   class Profile < Base
-    attr_reader :profile_email_addresses, :group_memberships, :is_client, :is_pro, :screen_name, :public_display_name, :profile_url, :home_city, :company, \
+    attr_reader :profile_email_addresses, :group_memberships, :screen_name, :public_display_name, :profile_url, :home_city, :company, \
                 :about_me_info, :photo_url, :activity_feed_url, :alerts_feed_url, :ical_url, :ref
-                
+    boolean_read_param :is_pro, :is_client
+    
     def initialize(client, source = nil)
       @client = client
       populate(source)

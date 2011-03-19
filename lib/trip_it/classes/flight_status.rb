@@ -1,9 +1,10 @@
 module TripIt
   class FlightStatus < Base
     attr_reader :scheduled_departure_date_time, :estimated_departure_date_time, :scheduled_arrival_date_time, :estimated_arrival_date_time, \
-                :is_connection_at_risk, :departure_terminal, :departure_gate, :arrival_terminal, :arrival_gate, :layover_minutes, :baggage_claim, \
+                :departure_terminal, :departure_gate, :arrival_terminal, :arrival_gate, :layover_minutes, :baggage_claim, \
                 :flight_status, :airport_code, :last_modified
-                
+    boolean_read_param :is_connection_at_risk
+
     def initialize(params = {})
       raise ArgumentError, "FlightStatus created with empty parameters" if params.empty? 
 

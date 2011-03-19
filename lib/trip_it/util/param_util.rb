@@ -69,6 +69,18 @@ module TripIt
         end
       end
     end
+    
+    def boolean_read_param(*names)
+      names.each do |name|
+        define_method "#{name}" do
+          instance_variable_get("@#{name}")
+        end
+      
+        define_method "#{name}?" do
+          !!instance_variable_get("@#{name}")
+        end
+      end
+    end
   
     def array_param(*names)
       names.each do |name|

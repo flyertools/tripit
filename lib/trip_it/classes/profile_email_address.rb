@@ -1,6 +1,7 @@
 module TripIt
   class ProfileEmailAddress < Base
-    attr_reader :address, :is_auto_import, :is_confirmed, :is_primary
+    attr_reader :address
+    boolean_read_param :is_auto_import, :is_confirmed, :is_primary
     
     def initialize(params = {}) 
       raise ArgumentError, "ProfileEmailAddress created with empty parameters" if params.empty?
