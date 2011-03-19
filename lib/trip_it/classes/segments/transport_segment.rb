@@ -8,8 +8,8 @@ module TripIt
     def initialize(params = {})
       @start_date_time        = convertDT(params["StartDateTime"])
       @end_date_time          = convertDT(params["EndDateTime"])
-      @start_location_address = TripIt::Address.new(params["StartLocationAddress"])
-      @end_location_address   = TripIt::Address.new(params["EndLocationAddress"])
+      @start_location_address = TripIt::Address.new(params["StartLocationAddress"]) unless params["StartLocationAddress"].nil?
+      @end_location_address   = TripIt::Address.new(params["EndLocationAddress"]) unless params["EndLocationAddress"].nil?
       @start_location_name    = params["start_location_name"]
       @end_location_name      = params["end_location_name"]
       @carrier_name           = params["carrier_name"]

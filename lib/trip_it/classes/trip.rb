@@ -24,8 +24,8 @@ module TripIt
       @is_private                 = Boolean(info['Trip']['is_private'])
       @display_name               = info['Trip']['display_name']
       @description                = info['Trip']['description']
-      @start_date                 = Date.parse(info['Trip']['start_date'])
-      @end_date                   = Date.parse(info['Trip']['end_date'])
+      @start_date                 = Date.parse(info['Trip']['start_date']) unless info['Trip']['start_date'].nil?
+      @end_date                   = Date.parse(info['Trip']['end_date']) unless info['Trip']['end_date'].nil?
       @image_url                  = info['Trip']['image_url']
       @relative_url               = info['Trip']['relative_url']
       @trip_crs_remarks           = []
