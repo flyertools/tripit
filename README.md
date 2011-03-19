@@ -80,10 +80,10 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	
 	# Get a list of segments for the trip's first TripIt::AirObject
 	# (returns Array of TripIt::AirSegment objects)
-	mytrip.air.first.segments => [TripIt::AirSegment]
+	mytrip.air.first.segment => [TripIt::AirSegment]
 	
 	# Get some segment information for the first segment
-	nyclhr = mytrip.air.first.segments.first
+	nyclhr = mytrip.air.first.segment.first
 	nyclhr.start_city_name => "New York, NY"
 	nyclhr.end_city_name => "London, United Kingdom"
 	nyclhr.marketing_airline => "British Airways"
