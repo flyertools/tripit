@@ -35,16 +35,20 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	# Get the user's screen name
 	myuser.screen_name => "test_user"
 	
-	# Get a list of the user's registered e-mail addresses (returns Array of TripIt::ProfileEmailAddress objects)
+	# Get a list of the user's registered e-mail addresses 
+	# (returns Array of TripIt::ProfileEmailAddress objects)
 	myuser.profile_email_addresses => [TripIt::ProfileEmailAddress]
 	
-	# Get a list of the user's trips (returns Array of TripIt::Trip objects. As you use them, they will lazy-load their children.)
+	# Get a list of the user's trips 
+	# (returns Array of TripIt::Trip objects. As you use them, they will lazy-load their children.)
 	myuser.trips => [TripIt::Trip]
 	
-	# Get a list of the user's trips, and populate all child objects in one call (returns Array of populated TripIt::Trip objects)
+	# Get a list of the user's trips, and populate all child objects in one call 
+	# (returns Array of populated TripIt::Trip objects)
 	myuser.trips(:include_objects => true) => [TripIt::Trip]
 	
-	# Check if the user is a TripIt Pro user, and then get an array of his registered TripIt::PointsProgram objects)
+	# Check if the user is a TripIt Pro user, and then get an 
+	# array of his registered TripIt::PointsProgram objects
 	if myuser.is_pro?
 		myuser.points_programs => [TripIt::PointsProgram]
 	end
@@ -56,7 +60,8 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	client = TripIt::OAuth.new('1a2b3c4d5e', '2a3b4c5d6e')
 	client.authorize_from_access('3a4b5c6d7e', '4a5b6c7d8e')
 	
-	# Load a known Trip ID. If you don't know this, and are looking for a user's trips, see TripIt::Profile.trips
+	# Load a known Trip ID. If you don't know this, and are looking 
+	# for a user's trips, see TripIt::Profile.trips
 	trip_id = 12345678
 	mytrip = TripIt::Trip.new(client, trip_id)
 	
@@ -69,10 +74,12 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	# Get the screen name of the first closeness match
 	mytrip.closeness_matches.first.screen_name => "traveling_friend"
 	
-	# Get a list of the AirObjects for this trip (returns Array of TripIt::AirObject objects)
+	# Get a list of the AirObjects for this trip 
+	# (returns Array of TripIt::AirObject objects)
 	mytrip.air => [TripIt::AirObject]
 	
-	# Get a list of segments for the trip's first **TripIt::AirObject** (returns Array of TripIt::AirSegment objects)
+	# Get a list of segments for the trip's first TripIt::AirObject
+	# (returns Array of TripIt::AirSegment objects)
 	mytrip.air.first.segments => [TripIt::AirSegment]
 	
 	# Get some segment information for the first segment
@@ -81,7 +88,8 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	nyclhr.end_city_name => "London, United Kingdom"
 	nyclhr.marketing_airline => "British Airways"
 
-	# Get a list of Hotels for this Trip (returns Array of TripIt::LodgingObject objects)
+	# Get a list of Hotels for this Trip 
+	# (returns Array of TripIt::LodgingObject objects)
 	mytrip.lodging => [TripIt::LodgingObject]
 	
 	# Get some info on the first hotel stay of this trip
