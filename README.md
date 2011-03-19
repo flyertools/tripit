@@ -21,24 +21,113 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
     
 ### TripIt::Profile
 
-**TripIt::Profile** is used for searching, creating, and chaining objects related to the TripIt user you authenticated with **TripIt::OAuth**.
+**TripIt::Profile** is used for viewing and creating objects related to the TripIt user you authenticated with **TripIt::OAuth**.
 
 	client = TripIt::OAuth.new('1a2b3c4d5e', '2a3b4c5d6e')
 	client.authorize_from_access('3a4b5c6d7e', '4a5b6c7d8e')
 
 	# Instantiate the user by loading his profile -- pass the client object so Profile knows how to authenticate.
 	myuser = TripIt::Profile.new(client)
+	
 	# Get the user's public display name
 	myuser.public_display_name => "Test User"
+	
 	# Get the user's screen name
 	myuser.screen_name => "test_user"
+	
 	# Get a list of the user's registered e-mail addresses (returns Array of **TripIt::ProfileEmailAddress** objects)
 	myuser.profile_email_addresses => [TripIt::ProfileEmailAddress]
-	# Get a list of the user's trips (returns Array of **TripIt::Trip** objects)
+	
+	# Get a list of the user's trips (returns Array of **TripIt::Trip** objects. As you use them, they will lazy-load their children.)
 	myuser.trips => [TripIt::Trip]
-	# Check if the user is a TripIt Pro user, and then get his registered points programs
+	
+	# Get a list of the user's trips, and populate all child objects in one call (returns Array of populated **TripIt::Trip** objects)
+	myuser.trips(:include_objects => true) => [TripIt::Trip]
+	
+	# Check if the user is a TripIt Pro user, and then get an array of his registered **TripIt::PointsProgram** objects)
 	if myuser.is_pro?
-		
+		myuser.points_programs => [TripIt::PointsProgram]
+	end
+
+### TripIt::Trip
+
+**TripIt::Trip** is used for viewing and creating objects related to a Trip. As previously, you must be authenticated with **TripIt::OAuth**.
+
+	client = TripIt::OAuth.new('1a2b3c4d5e', '2a3b4c5d6e')
+	client.authorize_from_access('3a4b5c6d7e', '4a5b6c7d8e')
+	
+	# Load a known Trip ID. If you don't know this, and are looking for a user's trips, see **TripIt::Profile.trips**
+	trip_id = 12345678
+	mytrip = TripIt::Trip.new(client, trip_id)
+	
+	# Get the Trip's primary location
+	mytrip.primary_location => "Happy, Texas"
+	
+	# Get a list of nearby users (returns Array of **TripIt::Profile** objects)
+	mytrip.closeness_matches => [TripIt::Profile]
+	
+	# Get the screen name of the first closeness match
+	mytrip.closeness_matches.first.screen_name => "traveling_friend"
+	
+	# Get a list of the AirObjects for this trip (returns Array of **TripIt::AirObject** objects)
+	mytrip.air => [TripIt::AirObject]
+	
+	# Get a list of segments for the trip's first **TripIt::AirObject** (returns Array of **TripIt::AirSegment** objects)
+	mytrip.air.first.segments => [TripIt::AirSegment]
+	
+	# Get some segment information for the first segment
+	nyclhr = mytrip.air.first.segments.first
+	nyclhr.start_city_name => "New York, NY"
+	nyclhr.end_city_name => "London, United Kingdom"
+	nyclhr.marketing_airline => "British Airways"
+
+	# Get a list of Hotels for this Trip (returns Array of **TripIt::LodgingObject** objects)
+	mytrip.lodging => [TripIt::LodgingObject]
+	
+	# Get some info on the first hotel stay of this trip
+	hot = mytrip.lodging.first
+	hot.supplier_name => "Westin Times Square"
+	hot.room_type => "Presidential Suite"
+	
+	# DateTime properties always return native Ruby **DateTime** objects
+	hot.start_date_time => 2011-03-01T11:37:00+00:00
+	
+	# Address properties always return **TripIt::Address** objects
+	hot.address => TripIt::Address
+	hot.address.city => "New York"
+	
+## List of usable Objects
+
+*	TripIt::Address
+*	TripIt::FlightStatus
+*	TripIt::Group
+*	TripIt::Image
+*	TripIt::Invitee
+*	TripIt::PointsProgram
+*	TripIt::PointsProgramActivity
+*	TripIt::PointsProgramExpiration
+*	TripIt::Profile
+*	TripIt::ProfileEmailAddress
+*	TripIt::Traveler
+*	TripIt::Trip
+*	TripIt::TripCrsRemark
+
+*	TripIt::ActivityObject
+*	TripIt::AirObject
+	*	TripIt::AirSegment
+*	TripIt::CarObject
+*	TripIt::CruiseObject
+	*	TripIt::CruiseSegment
+*	TripIt::DirectionsObject
+*	TripIt::LodgingObject
+*	TripIt::MapObject
+*	TripIt::NoteObject
+*	TripIt::RailObject
+	*	TripIt::RailSegment
+*	TripIt::RestaurantObject
+*	TripIt::TransportObject
+	*	TripIt::TransportSegment
+*	TripIt::WeatherObject
 
 ## Contributing to tripit
  
