@@ -23,5 +23,10 @@ module TripIt
       @avg_precipitation_cm = info["avg_precipitation_cm"].to_f
       @avg_snow_depth_cm    = info["avg_snow_depth_cm"].to_f
     end
+    
+    def sequence
+      arr = super
+      arr + ["@date", "@location", "@avg_high_temp_c", "@avg_low_temp_c", "@avg_wind_speed_kn", "@avg_precipitation_cm", "@avg_snow_depth_cm"]
+    end
   end
 end

@@ -1,6 +1,6 @@
 module TripIt
   class NoteObject < BaseObject
-    datetime_param :datetime
+    datetime_param :date_time
     address_param :address
     string_param :source, :text, :url, :notes
     
@@ -15,7 +15,7 @@ module TripIt
     def populate(source)
       info = source || @client.get("/note", :id => @obj_id)["NoteObject"]
       super(info)
-      @datetime         = convertDT(info["DateTime"])
+      @date_time        = convertDT(info["DateTime"])
       @address          = TripIt::Address.new(info["Address"])
       @source           = info["source"]
       @text             = info["text"]
@@ -33,6 +33,11 @@ module TripIt
       else
         raise ArgumentError, "detail_type_code must have a valid NOTE_DETAIL_TYPE_CODE"
       end
+    end
+    
+    def sequence
+      arr = super
+      arr + ["@date_time", "@address", "@detail_type_code", "@source", "@text", "@url", "@notes"]
     end
   end
 end

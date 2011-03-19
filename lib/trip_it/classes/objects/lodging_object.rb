@@ -3,7 +3,7 @@ module TripIt
     datetime_param :start_date_time, :end_date_time
     string_param :number_guests, :number_rooms, :room_type
     address_param :address
-    traveler_array_param :guests
+    traveler_array_param :guest
     
     def initialize(client, obj_id = nil, source = nil)
       @client = client
@@ -22,8 +22,13 @@ module TripIt
       @number_rooms         = info["number_rooms"]
       @room_type            = info["room_type"]
       @address              = TripIt::Address.new(info["Address"])
-      @guests               = []
-      chkAndPopulate(@guests, TripIt::Traveler, info["Guest"])
+      @guest                = []
+      chkAndPopulate(@guest, TripIt::Traveler, info["Guest"])
+    end
+    
+    def sequence
+      arr = super
+      arr + ["@start_date_time", "@end_date_time", "@address", "@guest", "@number_guests", "@number_rooms", "@room_type"]
     end
   end
 end

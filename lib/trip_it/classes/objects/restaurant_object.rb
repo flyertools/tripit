@@ -1,6 +1,6 @@
 module TripIt
   class RestaurantObject < ReservationObject
-    datetime_param :datetime
+    datetime_param :date_time
     address_param :address
     traveler_param :reservation_holder
     string_param :cuisine, :dress_code, :hours, :number_patrons, :price_range
@@ -16,7 +16,7 @@ module TripIt
     def populate(source)
       info = source || @client.get("/restaurant", :id => @obj_id)["RestaurantObject"]
       super(info)
-      @datetime           = convertDT(info["DateTime"])
+      @date_time           = convertDT(info["DateTime"])
       @address            = TripIt::Address.new(info["Address"])
       @reservation_holder = TripIt::Traveler.new(info["ReservationHolder"])
       @cuisine            = info["cuisine"]
@@ -24,6 +24,11 @@ module TripIt
       @hours              = info["hours"]
       @number_patrons     = info["number_patrons"]
       @price_range        = info["price_range"]
+    end
+    
+    def sequence
+      arr = super
+      arr + ["@date_time", "@address", "@reservation_holder", "@cuisine", "@dress_code", "@hours", "@number_patrons", "@price_range"]      
     end
   end
 end

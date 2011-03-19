@@ -1,6 +1,6 @@
 module TripIt
   class MapObject < BaseObject
-    datetime_param :datetime
+    datetime_param :date_time
     address_param :address
   
     def initialize(client, obj_id = nil, source = nil)
@@ -14,8 +14,21 @@ module TripIt
     def populate(source)
       info = source || @client.get("/map", :id => @obj_id)["MapObject"]
       super(info)
-      @datetime = convertDT(info["DateTime"])
+      @date_time = convertDT(info["DateTime"])
       @address  = TripIt::Address.new(info["Address"])
+    end
+    
+    def save
+      if @obj_id.nil?
+        @client.create(self.to_json)
+      else
+        @client.replace("/map/id/#{@obj_id}", self.to_json)
+      end
+    end   
+    
+    def sequence
+      arr = super
+      arr + ["@date_time","@address"]
     end
   end
 end

@@ -1,7 +1,7 @@
 module TripIt
   class Trip < Base
     attr_reader :closeness_matches, :trip_invitees, :trip_crs_remarks, :id, :relative_url, :info
-    datetime_param :start_date, :end_date
+    date_param :start_date, :end_date
     string_param :description, :display_name, :image_url, :primary_location
     boolean_param :is_private
     

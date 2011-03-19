@@ -1,8 +1,9 @@
 module TripIt
   class ActivityObject < ReservationObject    
-    datetime_param :start_date_time, :end_time
+    datetime_param :start_date_time
+    time_param :end_time
     address_param :address
-    traveler_array_param :participants
+    traveler_array_param :participant
     string_param :location_name
     
     def initialize(client, obj_id = nil, source = nil)
@@ -17,12 +18,12 @@ module TripIt
       info = source || @client.get("/activity", :id => @obj_id)["ActivityObject"]
       super(info)
       @start_date_time      = convertDT(info["StartDateTime"])
-      @end_date_time        = convertDT(info["EndDateTime"])
+      @end_time             = Time.parse(info["EndDateTime"])
       @address              = TripIt::Address.new(info["Address"])
       @location_name        = info["location_name"]
       @detail_type_code     = info["detail_type_code"]
-      @participants         = []
-      chkAndPopulate(@participants, TripIt::Traveler, info["Participant"])
+      @participant         = []
+      chkAndPopulate(@participant, TripIt::Traveler, info["Participant"])
     end
     
     def detail_type_code
@@ -34,6 +35,11 @@ module TripIt
       else
         raise ArgumentError, "detail_type_code must have a valid ACTIVITY_DETAIL_TYPE_CODE"
       end
+    end
+    
+    def sequence
+      arr = super
+      arr + ["@start_date_time", "@end_time", "@address", "@participant", "@detail_type_code", "@location_name"]
     end
   end
 end

@@ -4,12 +4,14 @@ require 'rubygems'
 require 'oauth'
 require 'json'
 require 'time'
+require 'xmlsimple'
 
 require 'trip_it/util/param_util'
 
 require 'trip_it/base'
 require 'trip_it/oauth'
 
+require 'trip_it/classes/tp_date_time'
 require 'trip_it/classes/profile'
 require 'trip_it/classes/profile_email_address'
 require 'trip_it/classes/group'

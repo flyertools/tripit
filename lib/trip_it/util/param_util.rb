@@ -130,6 +130,22 @@ module TripIt
       end
     end
     
+    def time_param(*names)
+      names.each do |name|
+        define_method "#{name}" do
+          instance_variable_get("@#{name}")
+        end
+      
+        define_method "#{name}=" do |val|
+          if val.is_a?(Time)
+            instance_variable_set("@#{name}",val)
+          else
+            raise ArgumentError, "#{name} must be a Time"
+          end
+        end
+      end      
+    end
+    
     def airportcode_param(*names)
       names.each do |name|
         define_method "#{name}" do

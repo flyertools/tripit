@@ -1,10 +1,9 @@
 module TripIt
   class BaseObject < Base    
-    attr_reader :id, :relative_url
+    attr_reader :id, :relative_url, :is_client_traveler
     integer_param :trip_id 
-    boolean_param :is_client_traveler
     string_param :display_name
-    array_param :images
+    array_param :image
     
     def populate(info)
       return if info.nil? # Make sure we don't raise an error if info is nil
@@ -13,8 +12,12 @@ module TripIt
       @trip_id                = info["trip_id"]
       @is_client_traveler     = Boolean(info["is_client_traveler"])
       @display_name           = info["display_name"]
-      @images                 = []
-      chkAndPopulate(@images, TripIt::Image, info["Image"])
+      @image                 = []
+      chkAndPopulate(@image, TripIt::Image, info["Image"])
+    end
+    
+    def sequence
+      ["@trip_id","@display_name", "@image"]
     end
   end
 end
