@@ -30,7 +30,7 @@ module TripIt
       @car_description          = info["car_description"]
       @car_type                 = info["car_type"]
       @mileage_charges          = info["mileage_charges"]
-      @driver                   = TripIt::Traveler.new(info["Driver"])
+      @driver                   = TripIt::Traveler.new(info["Driver"]) unless info["Driver"].nil?
     end
     
     def sequence

@@ -21,7 +21,7 @@ module TripIt
       @number_guests        = info["number_guests"]
       @number_rooms         = info["number_rooms"]
       @room_type            = info["room_type"]
-      @address              = TripIt::Address.new(info["Address"])
+      @address              = TripIt::Address.new(info["Address"]) unless info["Address"].nil?
       @guest                = []
       chkAndPopulate(@guest, TripIt::Traveler, info["Guest"])
     end

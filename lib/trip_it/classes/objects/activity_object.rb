@@ -18,11 +18,11 @@ module TripIt
       info = source || @client.get("/activity", :id => @obj_id)["ActivityObject"]
       super(info)
       @start_date_time      = convertDT(info["StartDateTime"])
-      @end_time             = Time.parse(info["end_time"])
-      @address              = TripIt::Address.new(info["Address"])
+      @end_time             = Time.parse(info["end_time"]) unless info["end_time"].nil?
+      @address              = TripIt::Address.new(info["Address"]) unless info["Address"].nil?
       @location_name        = info["location_name"]
       @detail_type_code     = info["detail_type_code"]
-      @participant         = []
+      @participant          = []
       chkAndPopulate(@participant, TripIt::Traveler, info["Participant"])
     end
     

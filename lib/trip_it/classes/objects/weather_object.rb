@@ -15,7 +15,7 @@ module TripIt
     def populate(source)
       info = source || @client.get("/weather", :id => @obj_id)["WeatherObject"]
       super(info)
-      @date                 = Date.parse(info["date"])
+      @date                 = Date.parse(info["date"]) unless info["date"].nil?
       @location             = info["location"]
       @avg_high_temp_c      = info["avg_high_temp_c"].to_f
       @avg_low_temp_c       = info["avg_low_temp_c"].to_f

@@ -20,10 +20,10 @@ module TripIt
       @segment = @segment.sort_by {|seg| seg.start_date_time } unless @segment.empty?
     end
     
-    def segments
+    def segment
       @segment
     end
-    def segments=(val)
+    def segment=(val)
       if val.is_a?(Array) && val.all? { |e| TransportSegment === e }
         @segment = val
       else

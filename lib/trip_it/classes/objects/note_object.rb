@@ -16,7 +16,7 @@ module TripIt
       info = source || @client.get("/note", :id => @obj_id)["NoteObject"]
       super(info)
       @date_time        = convertDT(info["DateTime"])
-      @address          = TripIt::Address.new(info["Address"])
+      @address          = TripIt::Address.new(info["Address"]) unless info["Address"].nil?
       @source           = info["source"]
       @text             = info["text"]
       @url              = info["url"]

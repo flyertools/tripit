@@ -15,7 +15,7 @@ module TripIt
       info = source || @client.get("/map", :id => @obj_id)["MapObject"]
       super(info)
       @date_time = convertDT(info["DateTime"])
-      @address  = TripIt::Address.new(info["Address"])
+      @address  = TripIt::Address.new(info["Address"]) unless info["Address"].nil?
     end
     
     def sequence

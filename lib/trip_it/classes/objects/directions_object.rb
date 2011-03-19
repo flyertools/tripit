@@ -15,8 +15,8 @@ module TripIt
       info = source || @client.get("/directions", :id => @obj_id)["DirectionsObject"]
       super(info)
       @date_time      = convertDT(info["DateTime"])
-      @start_address  = TripIt::Address.new(info["StartAddress"])
-      @end_address    = TripIt::Address.new(info["EndAddress"])
+      @start_address  = TripIt::Address.new(info["StartAddress"]) unless info["StartAddress"].nil?
+      @end_address    = TripIt::Address.new(info["EndAddress"]) unless info["EndAddress"].nil?
     end
     
     def sequence

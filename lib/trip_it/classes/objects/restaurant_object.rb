@@ -16,9 +16,9 @@ module TripIt
     def populate(source)
       info = source || @client.get("/restaurant", :id => @obj_id)["RestaurantObject"]
       super(info)
-      @date_time           = convertDT(info["DateTime"])
-      @address            = TripIt::Address.new(info["Address"])
-      @reservation_holder = TripIt::Traveler.new(info["ReservationHolder"])
+      @date_time          = convertDT(info["DateTime"])
+      @address            = TripIt::Address.new(info["Address"]) unless info["Address"].nil?
+      @reservation_holder = TripIt::Traveler.new(info["ReservationHolder"]) unless info["ReservationHolder"].nil?
       @cuisine            = info["cuisine"]
       @dress_code         = info["dress_code"]
       @hours              = info["hours"]
