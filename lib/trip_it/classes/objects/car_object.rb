@@ -19,8 +19,8 @@ module TripIt
       super(info)
       @start_date_time          = convertDT(info["StartDateTime"])
       @end_date_time            = convertDT(info["EndDateTime"])
-      @start_location_address   = TripIt::Address.new(info["start_location_address"])
-      @end_location_address     = TripIt::Address.new(info["end_location_address"])
+      @start_location_address   = TripIt::Address.new(info["start_location_address"]) unless info["start_location_address"].nil?
+      @end_location_address     = TripIt::Address.new(info["end_location_address"]) unless info["end_location_address"].nil?
       @start_location_hours     = info["start_location_hours"]
       @start_location_name      = info["start_location_name"]
       @start_location_phone     = info["start_location_phone"]
