@@ -1,6 +1,7 @@
 module TripIt
-  class OAuth
+  class OAuth < Base
     attr_reader :consumer, :access_token
+    exceptions :o_auth_exception, :bad_request_exception, :unauthorized_exception, :not_found_exception, :server_error
     
     def initialize(ctoken, csecret)
       @consumer = ::OAuth::Consumer.new(ctoken, csecret, :site => 'https://api.tripit.com')
@@ -29,35 +30,45 @@ module TripIt
       params.merge!(:format => "json")
       params_string = params.collect{|k, v| "#{k}/#{v}"}.join('/')
       request = access_token.get("/v1/get#{resource}/#{URI.escape(params_string)}")
-      JSON.parse(request.body)
+      returnResponse(request)
     end
     
     def list(resource, params={})
       params.merge!(:format => "json")
       params_string = params.collect{|k, v| "#{k}/#{v}"}.join('/')
       request = access_token.get("/v1/list#{resource}/#{URI.escape(params_string)}")
-      JSON.parse(request.body)
+      returnResponse(request)
     end
     
     def create(params={})
       params.merge!(:format => "json")
       params.each {|k, v| params[k] = v.join(', ') if v.is_a?(Array)}
       request = access_token.post("/v1/create", params)
-      JSON.parse(request.body)
+      returnResponse(request)
     end
     
     def replace(resource, params={})
       params.merge!(:format => "json")
       params.each {|k, v| params[k] = v.join(', ') if v.is_a?(Array)}
       request = access_token.post("/v1/replace#{resource}", params)
-      JSON.parse(request.body)
+      returnResponse(request)
     end        
     
     def delete(resource, params={})
       params.merge!(:format => "json")
       params_string = params.collect{|k, v| "#{k}/#{v}"}.join('/')
       request = access_token.get("/v1/delete#{resource}/#{URI.escape(params_string)}")
-      JSON.parse(request.body)
+      returnResponse(request)
+    end
+    
+    def returnResponse(request)
+      case request
+      when Net::HTTPOK: return JSON.parse(request.body)
+      when Net::HTTPBadRequest: raise BadRequestException, request.body
+      when Net::HTTPUnauthorized: raise UnauthorizedException, request.body
+      when Net::HTTPNotFound: raise NotFoundException, request.body
+      when Net::HTTPInternalServerError: raise ServerError, request.body
+      end
     end
   end
 end

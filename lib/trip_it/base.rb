@@ -63,10 +63,6 @@ module TripIt
       hash      
     end
     
-    def camelize(word)
-      word.split(/[^a-z0-9]/i).map{|w| w.capitalize}.join
-    end
-    
     def Boolean(string)
       return true if string == true || string =~ /^true$/i
       return false if string == false || string.nil? || string =~ /^false$/i

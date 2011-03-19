@@ -181,5 +181,27 @@ module TripIt
         end
       end      
     end
+    
+    def exceptions(*names)
+      names.each do |n|
+        # Clean up the name
+        n = camelize(n.to_s)
+
+        class_eval %{
+          # Define a common Error class if it's
+          # not yet defined
+          unless const_defined?("Error")
+            const_set("Error", Class.new(StandardError) )
+          end
+
+          # Define the exception class
+          class #{n} < Error; end
+        }
+      end
+    end
+    
+    def camelize(word)
+      word.split(/[^a-z0-9]/i).map{|w| w.capitalize}.join
+    end
   end 
 end

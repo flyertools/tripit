@@ -7,6 +7,7 @@ module TripIt
     array_param :images
     
     def populate(info)
+      return if info.nil? # Make sure we don't raise an error if info is nil
       @id                     = info["id"]
       @relative_url           = info["relative_url"]
       @trip_id                = info["trip_id"]

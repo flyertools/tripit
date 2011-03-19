@@ -35,12 +35,14 @@ module TripIt
       return @tripArr unless @tripArr.nil?
       @tripArr = []
       tripList = @client.list("/trip", params)["Trip"]
-      if tripList.is_a?(Array)
-        tripList.each do |trip|
-          @tripArr << TripIt::Trip.new(@client,trip['id'],params[:include_objects])
+      unless tripList.nil?
+        if tripList.is_a?(Array)
+          tripList.each do |trip|
+            @tripArr << TripIt::Trip.new(@client,trip['id'],params[:include_objects])
+          end
+        else
+          @tripArr << TripIt::Trip.new(@client,tripList['id'],params[:include_objects])
         end
-      else
-        @tripArr << TripIt::Trip.new(@client,tripList['id'],params[:include_objects])
       end
       return @tripArr
     end
@@ -50,12 +52,14 @@ module TripIt
       return @progArr unless @progArr.nil?
       @progArr = []
       progList = @client.list("/points_program")["PointsProgram"]
-      if progList.is_a?(Array)
-        progList.each do |prog|
-          @progArr << TripIt::PointsProgram.new(prog)
+      unless progList.nil?
+        if progList.is_a?(Array)
+          progList.each do |prog|
+            @progArr << TripIt::PointsProgram.new(prog)
+          end
+        else
+          @progArr << TripIt::PointsProgram.new(progList)
         end
-      else
-        @progArr << TripIt::PointsProgram.new(progList)
       end
       return @progArr
     end
