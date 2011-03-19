@@ -12,15 +12,15 @@ module TripIt
       @trip_id                = info["trip_id"]
       @is_client_traveler     = Boolean(info["is_client_traveler"])
       @display_name           = info["display_name"]
-      @image                 = []
+      @image                  = []
       chkAndPopulate(@image, TripIt::Image, info["Image"])
     end
     
     def save
       if @obj_id.nil?
-        @client.create(self.xml)
+        @client.create(self.to_xml)
       else
-        @client.replace("/#{self.class.name.split("::").last.gsub("Object","").downcase}/id/#{@obj_id}", self.to_json)
+        @client.replace("/#{self.class.name.split("::").last.gsub("Object","").downcase}/id/#{@obj_id}", self.to_xml)
       end
     end
     

@@ -4,6 +4,7 @@ module TripIt
     date_param :start_date, :end_date
     string_param :description, :display_name, :image_url, :primary_location
     boolean_param :is_private
+    exceptions :not_implemented_error
     
     def initialize(client, obj_id = nil, include_children = false, source = nil)
       @client = client
@@ -193,6 +194,37 @@ module TripIt
       return @weather if wxobj.nil?
       chkObjAndPopulate(@client, @weather, TripIt::WeatherObject, wxobj)
       return @weather      
+    end
+    
+    def sequence
+      ["@start_date", "@end_date", "@description", "@display_name","@image_url", "@is_private", "@primary_location"]
+    end
+    
+    def save
+      [ @activities,
+        @air,
+        @cars,
+        @cruises,
+        @directions,
+        @lodgings,
+        @maps,
+        @notes,
+        @rail,
+        @restaurants,
+        @transports,
+        @weather
+      ].each do |obj|
+          unless obj.nil?
+            if obj.count > 1
+              raise NotImplementedError, "Can only save one complex object at a time"
+            end
+          end
+        end
+        
+        # We only want to allow save for new objects for now.
+        if @obj_id.nil?
+          @client.create(self.xml)
+        end
     end
     
     def timeline

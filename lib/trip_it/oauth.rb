@@ -42,14 +42,14 @@ module TripIt
     
     # Only takes XML
     def create(param)
-      request = access_token.post("/v1/create", param, {'Content-Type' => 'application/x-www-form-urlencoded'})
-      returnResponse(request)
+      request = access_token.post("/v1/create", "xml=<Request>#{URI.escape(param)}</Request>", {'Content-Type' => 'application/x-www-form-urlencoded'})
+      returnResponse(request, "xml")
     end
     
     # Only takes XML
     def replace(resource, param)
-      request = access_token.post("/v1/replace#{resource}", param, {'Content-Type' => 'application/x-www-form-urlencoded'})
-      returnResponse(request)
+      request = access_token.post("/v1/replace#{resource}", "xml=<Request>#{URI.escape(param)}</Request>", {'Content-Type' => 'application/x-www-form-urlencoded'})
+      returnResponse(request, "xml")
     end        
     
     def delete(resource, params={})
@@ -59,9 +59,14 @@ module TripIt
       returnResponse(request)
     end
     
-    def returnResponse(request)
+    def returnResponse(request, format = "")
       case request
-      when Net::HTTPOK: return JSON.parse(request.body)
+      when Net::HTTPOK: 
+        if format == "xml"
+          return request.body
+        else
+          return JSON.parse(request.body) 
+        end
       when Net::HTTPBadRequest: raise BadRequestException, request.body
       when Net::HTTPUnauthorized: raise UnauthorizedException, request.body
       when Net::HTTPNotFound: raise NotFoundException, request.body

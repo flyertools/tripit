@@ -4,7 +4,7 @@ module TripIt
     
     def initialize(rubyDT)
       @date = rubyDT.strftime("%Y-%m-%d")
-      @time = rubyDT.strftime("%H:%M:%S%Z")
+      @time = rubyDT.strftime("%H:%M:%S")
     end
   end
 end
