@@ -18,7 +18,7 @@ module TripIt
       info = source || @client.get("/activity", :id => @obj_id)["ActivityObject"]
       super(info)
       @start_date_time      = convertDT(info["StartDateTime"])
-      @end_time             = Time.parse(info["EndDateTime"])
+      @end_time             = Time.parse(info["end_time"])
       @address              = TripIt::Address.new(info["Address"])
       @location_name        = info["location_name"]
       @detail_type_code     = info["detail_type_code"]
