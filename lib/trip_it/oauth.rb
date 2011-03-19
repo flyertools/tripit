@@ -1,7 +1,7 @@
 module TripIt
   class OAuth < Base
     attr_reader :consumer, :access_token
-    exceptions :o_auth_exception, :bad_request_exception, :unauthorized_exception, :not_found_exception, :server_error
+    exceptions :bad_request_exception, :unauthorized_exception, :not_found_exception, :server_error
     
     def initialize(ctoken, csecret)
       @consumer = ::OAuth::Consumer.new(ctoken, csecret, :site => 'https://api.tripit.com')
