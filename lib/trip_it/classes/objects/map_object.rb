@@ -18,14 +18,6 @@ module TripIt
       @address  = TripIt::Address.new(info["Address"])
     end
     
-    def save
-      if @obj_id.nil?
-        @client.create(self.to_json)
-      else
-        @client.replace("/map/id/#{@obj_id}", self.to_json)
-      end
-    end   
-    
     def sequence
       arr = super
       arr + ["@date_time","@address"]

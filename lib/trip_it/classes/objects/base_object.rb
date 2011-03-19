@@ -16,6 +16,14 @@ module TripIt
       chkAndPopulate(@image, TripIt::Image, info["Image"])
     end
     
+    def save
+      if @obj_id.nil?
+        @client.create(self.xml)
+      else
+        @client.replace("/#{self.class.name.split("::").last.gsub("Object","").downcase}/id/#{@obj_id}", self.to_json)
+      end
+    end
+    
     def sequence
       ["@trip_id","@display_name", "@image"]
     end

@@ -40,17 +40,15 @@ module TripIt
       returnResponse(request)
     end
     
-    def create(params={})
-      params.merge!(:format => "json")
-      params.each {|k, v| params[k] = v.join(', ') if v.is_a?(Array)}
-      request = access_token.post("/v1/create", params)
+    # Only takes XML
+    def create(param)
+      request = access_token.post("/v1/create", param, {'Content-Type' => 'application/x-www-form-urlencoded'})
       returnResponse(request)
     end
     
-    def replace(resource, params={})
-      params.merge!(:format => "json")
-      params.each {|k, v| params[k] = v.join(', ') if v.is_a?(Array)}
-      request = access_token.post("/v1/replace#{resource}", params)
+    # Only takes XML
+    def replace(resource, param)
+      request = access_token.post("/v1/replace#{resource}", param, {'Content-Type' => 'application/x-www-form-urlencoded'})
       returnResponse(request)
     end        
     
