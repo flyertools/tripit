@@ -216,7 +216,7 @@ module TripIt
       ].each do |obj|
           unless obj.nil?
             if obj.count > 1
-              raise NotImplementedError, "Can only save one complex object at a time"
+              raise NotImplementedError, "TripIt can only save one complex object at a time."
             end
           end
         end
