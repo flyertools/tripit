@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{tripit}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alex Kremer"]
@@ -105,7 +105,8 @@ Gem::Specification.new do |s|
     "test/unit/enums/note_detail_type_test.rb",
     "test/unit/enums/transport_detail_type_test.rb",
     "test/unit/oauth_test.rb",
-    "test/unit/util/param_util_test.rb"
+    "test/unit/util/param_util_test.rb",
+    "tripit.gemspec"
   ]
   s.homepage = %q{http://github.com/flextrip/tripit}
   s.licenses = ["MIT"]
