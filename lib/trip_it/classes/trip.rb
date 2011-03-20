@@ -226,25 +226,5 @@ module TripIt
           @client.create(self.xml)
         end
     end
-    
-    def timeline
-      [
-        @activities,
-        @cars,
-        @directions,
-        @lodgings,
-        @maps,
-        @notes,
-        @restaurants
-      ].each do |obj|
-        unless obj.empty?
-          if !obj.first.start_date_time.nil?
-            # Sort by Start_Date_Time
-          elsif !obj.first.datetime.nil?
-            # Sort by datetime
-          end
-        end
-      end
-    end
   end
 end
