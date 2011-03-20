@@ -4,7 +4,6 @@ require 'rubygems'
 require 'oauth'
 require 'json'
 require 'time'
-require 'xmlsimple'
 
 require 'trip_it/util/param_util'
 
