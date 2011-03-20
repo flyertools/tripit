@@ -1,5 +1,4 @@
-# Ensure date is loaded in non-rails projects
-require 'Date' unless defined? Date
+require 'date'
 
 module TripIt
   module ParamUtil
