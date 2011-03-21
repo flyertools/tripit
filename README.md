@@ -2,7 +2,7 @@
 
 A very high-level abstraction library providing objects to interact with the TripIt API. It is essentially a multi-user wrapper with each object being bound to a client. This library's methodology of dealing with API data was heavily influenced by [Mike Richards' Dopplr gem](http://github.com/mikeric/dopplr).
 
-Every object in this library mirrors the official TripIt API's properties as closely as possible. Each TripIt API object and its properties have been converted into a Ruby object. To get a list of all the objects and their properties, please see the [TripIt API XML Schema](https://api.dev.tripit.com/xsd/tripit-api-obj-v1.xsd) and the List of usable Objects below. You can also read the [TripIt API Documentation](http://github.com/tripit/api/downloads) for further details.
+Every object in this library mirrors the official TripIt API's properties as closely as possible. Each TripIt API object and its properties have been converted into a Ruby object. To get a list of all the objects and their properties, please see the [TripIt API XML Schema](https://api.dev.tripit.com/xsd/tripit-api-obj-v1.xsd) and the List of usable Objects below. You can also read the [TripIt API Documentation](http://github.com/tripit/api/downloads) for further details or check out the much more lightweight official [TripIt Ruby Binding](http://github.com/tripit/ruby_binding_v1)
 
 ## Install
 
@@ -136,6 +136,10 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 *	TripIt::TransportObject
 	*	TripIt::TransportSegment
 *	TripIt::WeatherObject
+
+## Unofficial Library
+
+This library is used for interaction with the TripIt API but is not endorsed or certified by TripIt. If you're looking for a more lightweight library, check out their official [Ruby Binding](http://github.com/tripit/ruby_binding_v1)
 
 ## Contributing to tripit
  
