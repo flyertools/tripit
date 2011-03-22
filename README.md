@@ -137,6 +137,11 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	*	TripIt::TransportSegment
 *	TripIt::WeatherObject
 
+## Known issues
+
+* Currently the tests are all empty. If you can contribute, it would be much appreciated.
+* Saving functionality is bare, and validation of objects for save is limited to properties. In other words, save at your own peril.
+
 ## Unofficial Library
 
 This library is used for interaction with the TripIt API but is not endorsed or certified by TripIt. If you're looking for a more lightweight library, check out their official [Ruby Binding](http://github.com/tripit/ruby_binding_v1)
