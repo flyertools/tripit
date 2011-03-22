@@ -33,7 +33,11 @@ module TripIt
       if time.nil?
         # Just return a date
         Date.parse(tpitDT["date"])
+      elsif date.nil?
+        # Or just a time
+        Time.parse(tpitDT["time"])
       else
+        # Ideally both
         DateTime.parse(tpitDT["date"] + "T" + tpitDT["time"] + tpitDT["utc_offset"])
       end
     end
