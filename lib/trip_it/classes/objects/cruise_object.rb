@@ -22,7 +22,6 @@ module TripIt
       @ship_name          = info["ship_name"]
       chkAndPopulate(@segment, TripIt::CruiseSegment, info["Segment"])
       chkAndPopulate(@traveler, TripIt::Traveler, info["Traveler"])
-      @segment = @segment.sort_by {|seg| seg.start_date_time } unless @segment.empty?
     end
     
     def segment
