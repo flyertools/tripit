@@ -38,7 +38,7 @@ module TripIt
         Time.parse(tpitDT["time"])
       else
         # Ideally both
-        DateTime.parse(tpitDT["date"] + "T" + tpitDT["time"] + tpitDT["utc_offset"])
+        DateTime.parse(tpitDT["date"] + "T" + tpitDT["time"] + (tpitDT["utc_offset"] || ""))
       end
     end
 
