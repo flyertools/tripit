@@ -32,13 +32,13 @@ module TripIt
       offset = tpitDT["utc_offset"]
       if time.nil?
         # Just return a date
-        Date.parse(tpitDT["date"])
+        Date.parse(date)
       elsif date.nil?
         # Or just a time
-        Time.parse(tpitDT["time"])
+        Time.parse(time)
       else
         # Ideally both
-        DateTime.parse(tpitDT["date"] + "T" + tpitDT["time"] + (tpitDT["utc_offset"] || ""))
+        DateTime.parse("#{date}T#{time}#{offset}")
       end
     end
 
