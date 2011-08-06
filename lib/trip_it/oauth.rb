@@ -61,16 +61,20 @@ module TripIt
     
     def returnResponse(request, format = "")
       case request
-      when Net::HTTPOK: 
+      when Net::HTTPOK
         if format == "xml"
           return request.body
         else
           return JSON.parse(request.body) 
         end
-      when Net::HTTPBadRequest: raise BadRequestException, request.body
-      when Net::HTTPUnauthorized: raise UnauthorizedException, request.body
-      when Net::HTTPNotFound: raise NotFoundException, request.body
-      when Net::HTTPInternalServerError: raise ServerError, request.body
+      when Net::HTTPBadRequest
+        raise BadRequestException, request.body
+      when Net::HTTPUnauthorized
+        raise UnauthorizedException, request.body
+      when Net::HTTPNotFound
+        raise NotFoundException, request.body
+      when Net::HTTPInternalServerError
+        raise ServerError, request.body
       end
     end
   end
