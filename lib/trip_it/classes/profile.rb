@@ -6,6 +6,7 @@ module TripIt
     
     def initialize(client, source = nil)
       @client = client
+      @tripCache ||= {}
       populate(source)
     end
     
@@ -33,19 +34,21 @@ module TripIt
     end
     
     def trips(params = {})
-      return @tripArr unless @tripArr.nil?
-      @tripArr = []
+      serialized_param_str = params.keys.sort.inject('') do |str, key| str += "#{key}:#{params[key]}::" end
+      return @tripCache[serialized_param_str] unless @tripCache[serialized_param_str].nil?
+      tripArr = []
       tripList = @client.list("/trip", params)["Trip"]
       unless tripList.nil?
         if tripList.is_a?(Array)
           tripList.each do |trip|
-            @tripArr << TripIt::Trip.new(@client,trip['id'],params[:include_objects])
+            tripArr << TripIt::Trip.new(@client,trip['id'],params[:include_objects])
           end
         else
-          @tripArr << TripIt::Trip.new(@client,tripList['id'],params[:include_objects])
+          tripArr << TripIt::Trip.new(@client,tripList['id'],params[:include_objects])
         end
       end
-      return @tripArr
+      @tripCache[serialized_param_str] = tripArr
+      return tripArr
     end
     
     def points_programs
