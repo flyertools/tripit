@@ -11,28 +11,26 @@ module TripIt
     end
     
     def populate(source)
-      info = source || @client.get("/profile").try(:fetch, "Profile")
+      info = source || @client.get("/profile")["Profile"]
       
-      unless info.nil?
-        @screen_name              = info['screen_name']
-        @public_display_name      = info['public_display_name']
-        @profile_url              = info['profile_url']
-        @home_city                = info['home_city']
-        @company                  = info['company']
-        @about_me_info            = info['about_me_info']
-        @photo_url                = info['photo_url']
-        @activity_feed_url        = info['activity_feed_url']
-        @alerts_feed_url          = info['alerts_feed_url']
-        @is_pro                   = Boolean(info['is_pro'])
-        @is_client                = Boolean(info['is_client'])
-        @ical_url                 = info['ical_url']
-        @ref                      = info['@attributes']['ref']
-        @profile_email_addresses  = []
-        @group_memberships        = []
+      @screen_name              = info['screen_name']
+      @public_display_name      = info['public_display_name']
+      @profile_url              = info['profile_url']
+      @home_city                = info['home_city']
+      @company                  = info['company']
+      @about_me_info            = info['about_me_info']
+      @photo_url                = info['photo_url']
+      @activity_feed_url        = info['activity_feed_url']
+      @alerts_feed_url          = info['alerts_feed_url']
+      @is_pro                   = Boolean(info['is_pro'])
+      @is_client                = Boolean(info['is_client'])
+      @ical_url                 = info['ical_url']
+      @ref                      = info['@attributes']['ref']
+      @profile_email_addresses  = []
+      @group_memberships        = []
       
-        chkAndPopulate(@profile_email_addresses, TripIt::ProfileEmailAddress, info['ProfileEmailAddresses']['ProfileEmailAddress']) unless info['ProfileEmailAddresses'].nil?
-        chkAndPopulate(@group_memberships, TripIt::Group, info['GroupMemberships']['Group']) unless info['GroupMemberships'].nil?
-      end
+      chkAndPopulate(@profile_email_addresses, TripIt::ProfileEmailAddress, info['ProfileEmailAddresses']['ProfileEmailAddress']) unless info['ProfileEmailAddresses'].nil?
+      chkAndPopulate(@group_memberships, TripIt::Group, info['GroupMemberships']['Group']) unless info['GroupMemberships'].nil?
     end
     
     def trips(params = {})
