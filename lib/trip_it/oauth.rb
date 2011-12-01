@@ -1,7 +1,7 @@
 module TripIt
   class OAuth < Base
     attr_reader :consumer, :access_token
-    exceptions :bad_request_exception, :unauthorized_exception, :not_found_exception, :server_error
+    exceptions :bad_request_exception, :unauthorized_exception, :not_found_exception, :server_error, :forbidden_exception, :service_unavailable_error
     
     def initialize(ctoken, csecret)
       @consumer = ::OAuth::Consumer.new(ctoken, csecret, :site => 'https://api.tripit.com')
@@ -59,6 +59,16 @@ module TripIt
       returnResponse(request)
     end
     
+    def subscribe(resource)
+      request = access_token.get("/v1/subscribe/type#{resource}")
+      returnResponse(request)
+    end
+    
+    def unsubscribe
+      request = access_token.get("/v1/unsubscribe")
+      returnResponse(request)
+    end
+    
     def returnResponse(request, format = "")
       case request
       when Net::HTTPOK
@@ -75,6 +85,10 @@ module TripIt
         raise NotFoundException, request.body
       when Net::HTTPInternalServerError
         raise ServerError, request.body
+      when Net::HTTPForbidden
+        raise ForbiddenException, request.body
+      when Net::HTTPServiceUnavailable
+        raise ServiceUnavailableError, request.body
       end
     end
   end

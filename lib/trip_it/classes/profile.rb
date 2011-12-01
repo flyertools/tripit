@@ -67,5 +67,13 @@ module TripIt
       end
       return @progArr
     end
+    
+    def subscribe_trips
+      @client.subscribe("/trip")
+    end
+    
+    def unsubscribe
+      @client.unsubscribe
+    end
   end
 end
