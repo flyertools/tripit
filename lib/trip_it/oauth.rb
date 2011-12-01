@@ -59,6 +59,16 @@ module TripIt
       returnResponse(request)
     end
     
+    def subscribe(resource)
+      request = access_token.get("/v1/subscribe/type#{resource}")
+      returnResponse(request)
+    end
+    
+    def unsubscribe
+      request = access_token.get("/v1/unsubscribe")
+      returnResponse(request)
+    end
+    
     def returnResponse(request, format = "")
       case request
       when Net::HTTPOK
