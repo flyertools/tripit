@@ -93,7 +93,7 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	mytrip.lodging => [TripIt::LodgingObject]
 	
 	# Get some info on the first hotel stay of this trip
-	hot = mytrip.lodging.first
+	hot = mytrip.lodgings.first
 	hot.supplier_name => "Westin Times Square"
 	hot.room_type => "Presidential Suite"
 	
