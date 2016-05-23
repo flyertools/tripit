@@ -157,5 +157,5 @@ This library is used for interaction with the TripIt API but is not endorsed or 
 
 ## Copyright
 
-Copyright (c) 2012 Flextrip, Inc. See LICENSE.txt for further details.
+Copyright (c) 2016 Flyertools, LLC. See LICENSE.txt for further details.
 
