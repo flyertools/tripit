@@ -63,7 +63,7 @@ Create a **TripIt::OAuth** instance with your consumer token and secret. Authori
 	# Load a known Trip ID. If you don't know this, and are looking 
 	# for a user's trips, see TripIt::Profile.trips
 	trip_id = 12345678
-	mytrip = TripIt::Trip.new(client, trip_id)
+	mytrip = TripIt::Trip.new(client, trip_id, :include_objects => true)
 	
 	# Get the Trip's primary location
 	mytrip.primary_location => "Happy, Texas"
