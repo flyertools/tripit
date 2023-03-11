@@ -29,33 +29,33 @@ module TripIt
     def get(resource, params={})
       params.merge!(:format => "json")
       params_string = params.collect{|k, v| "#{k}/#{v}"}.join('/')
-      request = access_token.get("/v1/get#{resource}/#{URI.escape(params_string)}")
+      request = access_token.get("/v1/get#{resource}/#{URI.encode_www_form_component(params_string)}")
       returnResponse(request)
     end
     
     def list(resource, params={})
       params.merge!(:format => "json")
       params_string = params.collect{|k, v| "#{k}/#{v}"}.join('/')
-      request = access_token.get("/v1/list#{resource}/#{URI.escape(params_string)}")
+      request = access_token.get("/v1/list#{resource}/#{URI.encode_www_form_component(params_string)}")
       returnResponse(request)
     end
     
     # Only takes XML
     def create(param)
-      request = access_token.post("/v1/create", "xml=<Request>#{URI.escape(param)}</Request>", {'Content-Type' => 'application/x-www-form-urlencoded'})
+      request = access_token.post("/v1/create", "xml=<Request>#{URI.encode_www_form_component(param)}</Request>", {'Content-Type' => 'application/x-www-form-urlencoded'})
       returnResponse(request, "xml")
     end
     
     # Only takes XML
     def replace(resource, param)
-      request = access_token.post("/v1/replace#{resource}", "xml=<Request>#{URI.escape(param)}</Request>", {'Content-Type' => 'application/x-www-form-urlencoded'})
+      request = access_token.post("/v1/replace#{resource}", "xml=<Request>#{URI.encode_www_form_component(param)}</Request>", {'Content-Type' => 'application/x-www-form-urlencoded'})
       returnResponse(request, "xml")
     end        
     
     def delete(resource, params={})
       params.merge!(:format => "json")
       params_string = params.collect{|k, v| "#{k}/#{v}"}.join('/')
-      request = access_token.get("/v1/delete#{resource}/#{URI.escape(params_string)}")
+      request = access_token.get("/v1/delete#{resource}/#{URI.encode_www_form_component(params_string)}")
       returnResponse(request)
     end
     
